@@ -48,12 +48,12 @@ public class CommandHelp implements CommandExecutor {
                 .append(Component.text(" - Lädt ein Plugin neu")
                         .color(TextColor.color(0x808080))) // Grau
                 .append(Component.text("\n"))
-                .append(Component.text("/pluginmanager stop ")
+                .append(Component.text("/pluginmanager stop <plugin>")
                         .color(TextColor.color(0x00FFFF))) // Aqua
-                .append(Component.text(" - Setzt die Config")
+                .append(Component.text(" - Stoppt ein Plugin")
                         .color(TextColor.color(0x808080))) // Grau
                 .append(Component.text("\n"))
-                .append(Component.text("/discord help")
+                .append(Component.text("/pluginmanager help")
                         .color(TextColor.color(0x00FFFF))) // Aqua
                 .append(Component.text(" - Zeigt diese Hilfe an")
                         .color(TextColor.color(0x808080))) // Grau
