@@ -13,7 +13,7 @@ public class CommandPluginManager implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
 
-
+        sender.sendMessage("Nutze /pm help für weitere informationen");
         // Unterbefehl "reload"
         if (args[0].equalsIgnoreCase("reload")) {
             return new CommandReload(plugin).onCommand(sender, command, label, args);

@@ -28,7 +28,7 @@ public class CommandReload implements CommandExecutor {
             return false;
         }
 
-        String pluginName = args[0];
+        String pluginName = args[1];
         Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
 
         if (plugin == null) {
