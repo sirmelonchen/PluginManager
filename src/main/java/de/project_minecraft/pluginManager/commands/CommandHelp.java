@@ -48,7 +48,7 @@ public class CommandHelp implements CommandExecutor {
                 .append(Component.text(" - Lädt ein Plugin neu")
                         .color(TextColor.color(0x808080))) // Grau
                 .append(Component.text("\n"))
-                .append(Component.text("/discord set <key> <value>")
+                .append(Component.text("/pluginmanager stop ")
                         .color(TextColor.color(0x00FFFF))) // Aqua
                 .append(Component.text(" - Setzt die Config")
                         .color(TextColor.color(0x808080))) // Grau
