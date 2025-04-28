@@ -1,0 +1,19 @@
+name: PluginManager
+version: 0.0 rev-1
+main: de.project_minecraft.pluginManager.PluginManager
+api-version: '1.21'
+authors:
+  - sir_melonchen
+description: Ein Pluginmanager
+commands:
+  pluginmanager:
+    description: Hauptbefehl
+    aliases: [pm]
+command-completions:
+  discord:
+    executor: de.project_minecraft.commandDiscord.commands.discordCommand
+    tab-completer: de.project_minecraft.commandDiscord.commands.discordCommandTabCompleter
+permissions:
+  pluginmanager.use:
+    description: Erlaubt das Bearbeiten der Konfiguration
+    default: op
