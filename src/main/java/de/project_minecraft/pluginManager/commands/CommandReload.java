@@ -1,8 +1,5 @@
 package de.project_minecraft.pluginManager.commands;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,23 +15,27 @@ import java.io.File;
 
 public class CommandReload implements CommandExecutor {
     private final JavaPlugin plugin;
-    public CommandReload(JavaPlugin plugin){
+    public CommandReload(JavaPlugin plugin) {
         this.plugin = plugin;
     }
+
     @Override
-    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
+    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1) {
             sender.sendMessage(ChatColor.RED + "Please specify a plugin name.");
             return false;
         }
 
-        String pluginName = args[1];
-        Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
+        String pluginName = args[0]; // args[0], nicht args[1]
+        Plugin targetPlugin = Bukkit.getPluginManager().getPlugin(pluginName);
 
-        if (plugin == null) {
+        if (targetPlugin == null) {
             sender.sendMessage(ChatColor.RED + "Plugin not found: " + pluginName);
             return true;
         }
+
+        sender.sendMessage(ChatColor.YELLOW + "Disabling plugin: " + pluginName);
+        Bukkit.getPluginManager().disablePlugin(targetPlugin);
 
         File pluginFile = new File("plugins", pluginName + ".jar");
 
@@ -43,7 +44,6 @@ public class CommandReload implements CommandExecutor {
             return true;
         }
 
-        Bukkit.getPluginManager().disablePlugin(plugin);
         try {
             Plugin reloadedPlugin = Bukkit.getPluginManager().loadPlugin(pluginFile);
             Bukkit.getPluginManager().enablePlugin(reloadedPlugin);
@@ -54,5 +54,4 @@ public class CommandReload implements CommandExecutor {
         }
         return true;
     }
-
 }
