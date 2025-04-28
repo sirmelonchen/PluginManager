@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,22 +23,36 @@ public class CommandReload implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
-        String pluginName = args[1];
-        Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
-        if (plugin != null) {
-            File pluginFile = new File("plugins", pluginName + ".jar");
+        if (args.length < 1) {
+            sender.sendMessage(ChatColor.RED + "Please specify a plugin name.");
+            return false;
+        }
 
-            if (pluginFile.exists()) {
-                Bukkit.getPluginManager().disablePlugin(plugin);
-                try {
-                    // Plugin neu laden
-                    Plugin reloadedPlugin = Bukkit.getPluginManager().loadPlugin(pluginFile);
-                    Bukkit.getPluginManager().enablePlugin(reloadedPlugin);
-                } catch (InvalidPluginException | InvalidDescriptionException e) {
-                    e.printStackTrace();
-                }
-            }
+        String pluginName = args[0];
+        Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
+
+        if (plugin == null) {
+            sender.sendMessage(ChatColor.RED + "Plugin not found: " + pluginName);
+            return true;
+        }
+
+        File pluginFile = new File("plugins", pluginName + ".jar");
+
+        if (!pluginFile.exists()) {
+            sender.sendMessage(ChatColor.RED + "Plugin file not found: " + pluginFile.getPath());
+            return true;
+        }
+
+        Bukkit.getPluginManager().disablePlugin(plugin);
+        try {
+            Plugin reloadedPlugin = Bukkit.getPluginManager().loadPlugin(pluginFile);
+            Bukkit.getPluginManager().enablePlugin(reloadedPlugin);
+            sender.sendMessage(ChatColor.GREEN + "Plugin reloaded: " + pluginName);
+        } catch (InvalidPluginException | InvalidDescriptionException e) {
+            e.printStackTrace();
+            sender.sendMessage(ChatColor.RED + "Failed to reload plugin: " + pluginName);
         }
         return true;
     }
+
 }
