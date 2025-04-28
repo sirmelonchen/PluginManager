@@ -4,8 +4,11 @@ plugins {
 }
 
 group = 'de.project_minecraft'
-version = '0.0-rev-1'
+version = '0.1 rev-2'
 
+jar {
+    archiveBaseName = 'PluginManager'  // Der Name der generierten .jar-Datei
+}
 repositories {
     mavenCentral()
     maven {
